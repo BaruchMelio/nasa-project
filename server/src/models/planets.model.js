@@ -35,12 +35,14 @@ function loadPlanetsData() {
 }
 
 async function getAllPlanets() {
-  return await planets.find({}, {
+  console.log('getAllPlanets called');
+  return planets.find({}, null, {
     '_id': 0, '__v': 0,
   });
 }
 
 async function savePlanet(planet) {
+  console.log('savePlanet called with planet: ', planet.kepler_name);
   try {
     await planets.updateOne({
       keplerName: planet.kepler_name,
