@@ -1,4 +1,5 @@
-const { 
+const {
+  setupLaunchesDb,
   getAllLaunches,
   scheduleNewLaunch,
   existsLaunchWithId,

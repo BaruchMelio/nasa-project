@@ -58,6 +58,56 @@ async function populateLaunches() {
   // }
 }
 
+/*
+flightNumber: {
+    type: Number,
+    required: true,
+  },
+  launchDate: {
+    type: Date,
+    required: true,
+  },
+  mission: {
+    type: String,
+    required: true,
+  },
+  rocket: {
+    type: String,
+    required: true,
+  },
+  target: {
+    type: String,
+  },
+  customers: [ String ],
+  upcoming: {
+    type: Boolean,
+    required: true,
+  },
+  success: {
+    type: Boolean,
+    required: true,
+    default: true,
+  },
+ */
+
+async function setupLaunchesDb(conn) {
+  console.log('Setting up launch DB...');
+  await conn.query(
+      `CREATE TABLE IF NOT EXISTS launches
+      ( flightNumber INTEGER NOT NULL,
+        launchDate timestamp NOT NULL,
+        mission TEXT NOT NULL,
+        rocket TEXT NOT NULL,
+        target TEXT,
+        customers TEXT,
+        missionType INTEGER NOT NULL,
+        success INTEGER NOT NULL DEFAULT 1,
+        PRIMARY KEY (flightNumber) 
+      );`
+  )
+  console.log('launch DB ready')
+}
+
 async function loadLaunchData() {
   console.log("loadLaunchData called");
   // const firstLaunch = await findLaunch({
@@ -150,6 +200,7 @@ async function abortLaunchById(launchId) {
 }
 
 module.exports = {
+  setupLaunchesDb,
   loadLaunchData,
   existsLaunchWithId,
   getAllLaunches,
